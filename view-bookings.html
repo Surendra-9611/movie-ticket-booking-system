@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>View Bookings</title>
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+        }
+
+        .container {
+            width: 400px;
+            margin: 40px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        p {
+            line-height: 1.6;
+        }
+
+        hr {
+            border: 0;
+            border-top: 1px solid #ccc;
+        }
+
+        .clear-btn {
+            background-color: #d9534f;
+            color: white;
+            border: none;
+            padding: 10px;
+            width: 100%;
+            margin-top: 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .clear-btn:hover {
+            background-color: #c9302c;
+        }
+
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 15px;
+            text-decoration: none;
+            color: #007bff;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <h2>All Bookings</h2>
+
+    <div id="bookingList"></div>
+
+    <button class="clear-btn" onclick="clearBookings()">
+        Clear All Bookings
+    </button>
+
+    <a href="admin-dashboard.html" class="back-link">Back</a>
+</div>
+
+<script>
+    let bookings = JSON.parse(localStorage.getItem("bookings")) || [];
+    let list = document.getElementById("bookingList");
+
+    if (bookings.length === 0) {
+        list.innerHTML = "<p>No bookings found</p>";
+    } else {
+        bookings.forEach(b => {
+            list.innerHTML += `
+                <p>
+                    <strong>Movie:</strong> ${b.movie}<br>
+                    <strong>Seats:</strong> ${b.seats}<br>
+                    <strong>Amount:</strong> ₹${b.amount}
+                </p>
+                <hr>
+            `;
+        });
+    }
+
+    function clearBookings() {
+        if (confirm("Are you sure you want to delete all bookings?")) {
+            localStorage.removeItem("bookings");
+            alert("All bookings cleared successfully!");
+            location.reload();
+        }
+    }
+</script>
+
+</body>
+</html>

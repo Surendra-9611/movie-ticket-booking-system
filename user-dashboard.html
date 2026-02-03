@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="container">
+    <h2 class="center">Welcome User 🎉</h2>
+    <h3>Available Movies</h3>
+
+    <div id="movieList"></div>
+
+    <div class="center">
+        <a href="logout.html">Logout</a>
+    </div>
+</div>
+
+<script>
+let movies = JSON.parse(localStorage.getItem("movies")) || [];
+let movieDiv = document.getElementById("movieList");
+
+if (movies.length === 0) {
+    movieDiv.innerHTML = "<p>No movies available</p>";
+} else {
+    movies.forEach((movie) => {
+        movieDiv.innerHTML += `
+            <div class="movie">
+                <b>${movie.name}</b><br>
+                Show Time: ${movie.time}<br><br>
+                <button onclick="bookMovie('${movie.name}')">Book Ticket</button>
+            </div>
+        `;
+    });
+}
+
+function bookMovie(movieName) {
+    localStorage.setItem("selectedMovie", movieName);
+    window.location.href = "seats.html";
+}
+</script>
+
+</body>
+</html>

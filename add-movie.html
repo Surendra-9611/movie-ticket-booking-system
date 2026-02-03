@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Movie</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+<div class="container">
+    <h2>Add Movie</h2>
+
+    <input type="text" id="movieName" placeholder="Movie Name"><br><br>
+    <input type="text" id="showTime" placeholder="Show Time"><br><br>
+
+    <button onclick="addMovie()">Add Movie</button><br><br>
+
+    <a href="admin-dashboard.html">Back</a>
+</div>
+
+<script>
+function addMovie() {
+    let name = document.getElementById("movieName").value;
+    let time = document.getElementById("showTime").value;
+
+    let movies = JSON.parse(localStorage.getItem("movies")) || [];
+    movies.push({name, time});
+    localStorage.setItem("movies", JSON.stringify(movies));
+
+    alert("Movie Added Successfully");
+}
+</script>
+
+</body>
+</html>

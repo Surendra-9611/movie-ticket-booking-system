@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ticket Confirmation</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="container">
+    <h2 class="center">🎉 Ticket Booked Successfully!</h2>
+
+    <p id="movieInfo"></p>
+    <p id="seatInfo"></p>
+    <p id="amountInfo"></p>
+
+    <div class="center">
+        <a href="user-dashboard.html">Book Another Ticket</a><br><br>
+        <a href="logout.html">Logout</a>
+    </div>
+</div>
+
+<script>
+let bookings = JSON.parse(localStorage.getItem("bookings")) || [];
+
+if (bookings.length > 0) {
+    let last = bookings[bookings.length - 1];
+
+    document.getElementById("movieInfo").innerText =
+        "Movie: " + last.movie;
+
+    document.getElementById("seatInfo").innerText =
+        "Seats: " + last.seats.join(", ");
+
+    document.getElementById("amountInfo").innerText =
+        "Total Paid: ₹" + last.amount;
+}
+</script>
+
+</body>
+</html>

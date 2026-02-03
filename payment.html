@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Payment Page</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="container">
+    <h2 class="center">Payment Page 💳</h2>
+
+    <p id="movieInfo"></p>
+    <p id="seatInfo"></p>
+    <p id="amountInfo"></p>
+
+    <div class="center">
+        <button onclick="payNow()">Pay Now</button>
+    </div>
+</div>
+
+<script>
+let seats = JSON.parse(localStorage.getItem("seats")) || [];
+let pricePerSeat = Number(localStorage.getItem("price")) || 0;
+let movie = localStorage.getItem("selectedMovie") || "Not Selected";
+
+let total = seats.length * pricePerSeat;
+
+document.getElementById("movieInfo").innerText =
+    "Movie: " + movie;
+
+document.getElementById("seatInfo").innerText =
+    "Selected Seats: " + seats.join(", ");
+
+document.getElementById("amountInfo").innerText =
+    "Total Amount: ₹" + total;
+
+function payNow() {
+    let bookings = JSON.parse(localStorage.getItem("bookings")) || [];
+
+    let booking = {
+        movie: movie,
+        seats: seats,
+        amount: total
+    };
+
+    bookings.push(booking);
+    localStorage.setItem("bookings", JSON.stringify(bookings));
+
+    alert("Payment Successful ✅");
+    window.location.href = "ticket.html";
+}
+</script>
+
+</body>
+</html>
